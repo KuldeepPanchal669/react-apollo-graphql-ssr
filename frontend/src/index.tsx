@@ -1,7 +1,9 @@
 import React from "react";
-import { hydrateRoot } from "react-dom/client";
+import { createRoot, hydrateRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
 import routeConfig from "./Routes";
+import store from "./store";
 import "./index.css";
 // import reportWebVitals from "./reportWebVitals";
 
@@ -18,10 +20,27 @@ const AppRoutes = () => (
   </Routes>
 );
 const rootNode = document.getElementById("root") as HTMLElement;
-// const root = ReactDOM.createRoot(rootNode);
-// root.render(<BrowserRouter>{<AppRoutes />}</BrowserRouter>);
+const root = createRoot(rootNode);
+root.render(
+  <BrowserRouter>
+    {
+      <Provider store={store}>
+        <AppRoutes />
+      </Provider>
+    }
+  </BrowserRouter>
+);
 
-hydrateRoot(rootNode, <BrowserRouter>{<AppRoutes />}</BrowserRouter>);
+// hydrateRoot(
+//   rootNode,
+//   <BrowserRouter>
+//     {
+//       <Provider store={store}>
+//         <AppRoutes />
+//       </Provider>
+//     }
+//   </BrowserRouter>
+// );
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
