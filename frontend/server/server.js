@@ -11,11 +11,26 @@ import store from "../src/store/index.ts";
 
 const app = express();
 
-app.get("/*", async (req, res) => {
-  // const response = await fetch("https://fakestoreapi.com/products");
-  // const data = await response.json();
+// Serve specific static assets
+app.use("/static", express.static(path.join(__dirname, "../build/static")));
 
+// Serve manifest and favicon files
+app.get("/manifest.json", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build", "manifest.json"));
+});
+app.get("/favicon.ico", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build", "favicon.ico"));
+});
+app.get("/logo192.png", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build", "logo192.png"));
+});
+
+app.get("/*", async (req, res) => {
   const context = {};
+
+  
+  //Write logic to fetch data for api inside the nested comoponents
+
 
   const content = renderToString(
     <Provider store={store}>

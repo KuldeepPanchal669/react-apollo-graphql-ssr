@@ -2,12 +2,17 @@ import React, { useEffect } from "react";
 import { fetchProductList } from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store";
+import { Store } from "@reduxjs/toolkit";
 
 type ProductListProps = {
   productList?: [];
 };
 
-const ProductList: React.FC<ProductListProps> = () => {
+interface ProductListComponent extends React.FC<ProductListProps> {
+  loadData?: (store: Store<AppDispatch>) => void;
+}
+
+const ProductList: ProductListComponent = () => {
   const dispatch = useDispatch<AppDispatch>();
   const productList = useSelector((state: RootState) => state.productList);
 
@@ -26,4 +31,9 @@ const ProductList: React.FC<ProductListProps> = () => {
   );
 };
 
+function loadData(store: any) {
+  return store.dispatch(fetchProductList());
+}
+
+ProductList.loadData = loadData;
 export default ProductList;

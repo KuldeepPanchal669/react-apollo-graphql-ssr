@@ -1,5 +1,4 @@
 import React from "react";
-import App from "./App";
 import HomePage from "./pages/HomePage/home-page";
 import ProductListPage from "./pages/ProductListPage/product-list-page";
 import NotFoundPage from "./pages/NotFoundPage/not-found-page";
